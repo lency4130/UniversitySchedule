@@ -1,0 +1,14 @@
+com\example\schedule\model\TimeSlot.class
+com\example\schedule\model\Lesson.class
+com\example\schedule\dto\LessonDTO.class
+com\example\schedule\controller\LessonController.class
+com\example\schedule\model\Student.class
+com\example\schedule\repository\LessonRepository.class
+com\example\schedule\controller\StudentController.class
+com\example\schedule\model\Subject.class
+com\example\schedule\model\Teacher.class
+com\example\schedule\ScheduleApplication.class
+com\example\schedule\model\Schedule.class
+com\example\schedule\controller\ScheduleController.class
+com\example\schedule\repository\ScheduleRepository.class
+com\example\schedule\repository\StudentRepository.class

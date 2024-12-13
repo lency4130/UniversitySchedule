@@ -11,20 +11,21 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf().disable()
-            .authorizeRequests()
-                .anyRequest().authenticated()
-            .and()
-            .formLogin()
-                .permitAll()
-            .and()
-            .logout()
-                .permitAll();
-        return http.build();
-    }
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	    http
+	        .csrf().disable()
+	        .authorizeRequests()
+	            .antMatchers("/api/grades/**").permitAll() // Разрешаем доступ ко всем запросам на /api/grades
+	            .anyRequest().authenticated() // Остальные запросы требуют аутентификации
+	        .and()
+	        .formLogin()
+	            .permitAll()
+	        .and()
+	        .logout()
+	            .permitAll();
+	    return http.build();
+	}
 
     @Bean
     public PasswordEncoder passwordEncoder() {

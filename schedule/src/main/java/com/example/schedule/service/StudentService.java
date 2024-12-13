@@ -31,4 +31,8 @@ public class StudentService {
     public void deleteStudent(Long id) {
         repository.deleteById(id);
     }
+    
+    public Student findStudentByEmail(String email) {
+        return repository.findByEmail(email);
+    }
 }

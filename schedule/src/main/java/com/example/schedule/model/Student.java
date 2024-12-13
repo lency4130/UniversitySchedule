@@ -19,6 +19,14 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
     private StudentGroup studentGroup;
+    
+    @Column(nullable = false)
+    private String password;
+    
+    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role = Role.STUDENT;
 
     // Getters and Setters
     public Long getId() {
@@ -52,7 +60,23 @@ public class Student {
     public void setStudentGroup(StudentGroup studentGroup) {
         this.studentGroup = studentGroup;
     }
+    
+    public String getPassword() {
+        return password;
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

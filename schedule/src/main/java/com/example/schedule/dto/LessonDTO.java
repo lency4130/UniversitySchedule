@@ -11,6 +11,10 @@ public class LessonDTO {
     private String timeSlot;
     private LocalDate lessonDate;
 
+    // Новые поля для оценки
+    private Integer grade; // Оценка может быть null, если урок не оценен
+    private String comment;
+
     // Getters and setters
 
     public Long getId() {
@@ -67,5 +71,21 @@ public class LessonDTO {
 
     public void setLessonDate(LocalDate lessonDate) {
         this.lessonDate = lessonDate;
+    }
+
+    public Integer getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

@@ -1,4 +1,5 @@
 package com.example.schedule;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,6 +11,10 @@ import com.example.schedule.model.Subject;
 public class ScheduleApplication {
     public static void main(String[] args) {
         SpringApplication.run(ScheduleApplication.class, args);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String rawPassword = "12345"; // замените на ваш пароль
+        String encodedPassword = encoder.encode(rawPassword);
+        System.out.println(encodedPassword);
     }
 
 }

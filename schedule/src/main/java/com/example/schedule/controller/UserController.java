@@ -2,8 +2,10 @@ package com.example.schedule.controller;
 
 import com.example.schedule.model.Student;
 import com.example.schedule.model.Teacher;
+import com.example.schedule.model.Admin;
 import com.example.schedule.repository.StudentRepository;
 import com.example.schedule.repository.TeacherRepository;
+import com.example.schedule.repository.AdminRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +20,12 @@ public class UserController {
 
     private final StudentRepository studentRepository;
     private final TeacherRepository teacherRepository;
+    private final AdminRepository adminRepository;
 
-    public UserController(StudentRepository studentRepository, TeacherRepository teacherRepository) {
+    public UserController(StudentRepository studentRepository, TeacherRepository teacherRepository, AdminRepository adminRepository) {
         this.studentRepository = studentRepository;
         this.teacherRepository = teacherRepository;
+        this.adminRepository = adminRepository;
     }
 
     @GetMapping("/current")
@@ -36,7 +40,7 @@ public class UserController {
         // Email из principal
         String email = authentication.getName();
 
-        // Проверяем, студент это или учитель
+        // Проверяем, студент это, учитель или админ
         Student student = studentRepository.findByEmail(email);
         if (student != null) {
             return Map.of(
@@ -51,6 +55,14 @@ public class UserController {
             return Map.of(
                 "role", "TEACHER",
                 "fullName", teacher.getFullName()
+            );
+        }
+        
+        Admin admin = adminRepository.findByEmail(email);
+        if (admin != null) {
+            return Map.of(
+                "role", "ADMIN",
+                "fullName", admin.getFullName()
             );
         }
 

@@ -1,6 +1,7 @@
 package com.example.schedule.service;
 
 import com.example.schedule.model.Student;
+import com.example.schedule.model.StudentGroup;
 import com.example.schedule.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,10 @@ import java.util.Optional;
 public class StudentService {
 
     private final StudentRepository repository;
+    
+    public List<Student> getStudentsByGroup(StudentGroup group) {
+        return repository.findAllByStudentGroup(group);
+    }
 
     public StudentService(StudentRepository repository) {
         this.repository = repository;

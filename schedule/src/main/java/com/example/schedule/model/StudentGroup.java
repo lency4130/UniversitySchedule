@@ -1,6 +1,10 @@
 package com.example.schedule.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -29,6 +33,7 @@ public class StudentGroup {
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
+    
 
     @Override
     public boolean equals(Object o) {

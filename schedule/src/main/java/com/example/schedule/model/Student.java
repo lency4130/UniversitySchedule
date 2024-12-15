@@ -1,6 +1,9 @@
 package com.example.schedule.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.Objects;
 
 @Entity

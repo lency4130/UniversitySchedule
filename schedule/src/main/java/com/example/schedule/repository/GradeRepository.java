@@ -11,5 +11,5 @@ import java.util.List;
 public interface GradeRepository extends JpaRepository<Grade, Long> {
     List<Grade> findByStudent(Student student);
     Optional<Grade> findByLessonAndStudent(Lesson lesson, Student student);
-
+    List<Grade> findByLessonId(Long lessonId);
 }

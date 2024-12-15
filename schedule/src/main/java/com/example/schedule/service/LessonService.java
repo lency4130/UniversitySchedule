@@ -1,10 +1,13 @@
 package com.example.schedule.service;
 
+import com.example.schedule.model.StudentGroup;
 import com.example.schedule.model.Grade;
+import com.example.schedule.model.Teacher;
 import com.example.schedule.model.Lesson;
 import com.example.schedule.model.Student;
 import com.example.schedule.repository.GradeRepository;
 import com.example.schedule.repository.LessonRepository;
+import com.example.schedule.repository.StudentGroupRepository;
 import org.springframework.stereotype.Service;
 import com.example.schedule.dto.LessonDTO;
 
@@ -17,14 +20,20 @@ public class LessonService {
 
     private final LessonRepository lessonRepository;
     private final GradeRepository gradeRepository;
-
-    public LessonService(LessonRepository lessonRepository, GradeRepository gradeRepository) {
+    private final StudentGroupRepository studentGroupRepository;
+    
+    public LessonService(LessonRepository lessonRepository, GradeRepository gradeRepository, StudentGroupRepository studentGroupRepository) {
         this.lessonRepository = lessonRepository;
         this.gradeRepository = gradeRepository;
+        this.studentGroupRepository = studentGroupRepository;
     }
 
     public List<Lesson> getAllLessons() {
         return lessonRepository.findAll();
+    }
+    
+    public List<Lesson> getLessonsByTeacher(Teacher teacher) {
+        return lessonRepository.findByTeacher(teacher);
     }
 
     public Optional<Lesson> getLessonById(Long id) {
@@ -37,6 +46,10 @@ public class LessonService {
 
     public void deleteLesson(Long id) {
     	lessonRepository.deleteById(id);
+    }
+    
+    public List<Lesson> getLessonsByGroup(StudentGroup group) {
+        return lessonRepository.findByStudentGroup(group);
     }
     
 
@@ -58,9 +71,9 @@ public class LessonService {
         return dto;
     }
     
-    public List<LessonDTO> getLessonsWithGradesForStudent(Student student) {
+    public List<LessonDTO> getLessonsWithGradesForStudent(Student student, StudentGroup group) {
         List<Grade> grades = gradeRepository.findByStudent(student);
-        List<Lesson> lessons = lessonRepository.findAll(); // Или фильтруйте по группе, если нужно
+        List<Lesson> lessons = lessonRepository.findByStudentGroup(group); // Или фильтруйте по группе, если нужно
 
         return lessons.stream()
                 .map(lesson -> {
@@ -72,6 +85,8 @@ public class LessonService {
                 })
                 .collect(Collectors.toList());
     }
+    
+
 
     
 }

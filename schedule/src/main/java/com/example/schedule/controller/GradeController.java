@@ -2,9 +2,11 @@ package com.example.schedule.controller;
 
 import com.example.schedule.service.GradeService;
 import com.example.schedule.model.Grade;
+import com.example.schedule.dto.GradeDTO;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/grades")
@@ -29,9 +31,31 @@ public class GradeController {
         }
     }
     
-    @GetMapping
-    public String test() {
-        return "Route is working";
-    }
+    /*
+    @PostMapping
+    public List<GradeDTO> getGradesByLessonId(Long lessonId) {
+        List<Grade> grades = gradeRepository.findByLessonId(lessonId);
 
+        return grades.stream()
+            .map(grade -> new GradeDTO(
+                grade.getId(),
+                grade.getStudent().getId(),
+                grade.getStudent().getFullName(),
+                grade.getGrade(),
+                grade.getComment()
+            ))
+            .collect(Collectors.toList());
+    }
+    */
+
+    
+    @GetMapping
+    public List<GradeDTO> getGradesByLessonId(@RequestParam Long lessonId) {
+        try {
+            return gradeService.getGradesByLessonId(lessonId);
+        } catch (RuntimeException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
+        }
+    }
+    
 }

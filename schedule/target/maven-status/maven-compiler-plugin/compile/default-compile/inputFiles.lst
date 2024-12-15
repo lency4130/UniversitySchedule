@@ -1,5 +1,6 @@
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\dto\LessonDTO.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\service\GradeService.java
+C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\service\TeacherService.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\controller\StudentController.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\model\Lesson.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\ScheduleApplication.java
@@ -11,17 +12,17 @@ C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\model\Grade.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\model\Schedule.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\service\CustomUserDetailsService.java
+C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\repository\StudentGroupRepository.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\service\LessonService.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\service\StudentService.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\controller\UserController.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\controller\LessonController.java
+C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\dto\GradeDTO.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\model\TimeSlot.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\model\Teacher.java
-C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\controller\ScheduleController.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\exception\GlobalExceptionHandler.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\repository\LessonRepository.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\config\SecurityConfig.java
-C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\repository\ScheduleRepository.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\model\Subject.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\model\StudentGroup.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\GradeControllerTest.java

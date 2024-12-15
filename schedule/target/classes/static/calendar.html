@@ -3,91 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Расписание занятий</title>
+    <title>Расписание с оценками</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
-            padding: 0;
+            background-color: #f4f5f7;
+            color: #333;
         }
+
         header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             background-color: #4CAF50;
             color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        nav button {
+            margin: 0 5px;
+            padding: 10px 15px;
+            background-color: white;
+            color: #4CAF50;
+            border: 1px solid #4CAF50;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        nav button:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+
         .container {
             margin: 20px auto;
-            max-width: 900px;
-            background: white;
+            max-width: 1000px;
+            background-color: white;
+            border-radius: 10px;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
+
         .week-navigation {
             display: flex;
             justify-content: space-between;
             margin-bottom: 20px;
         }
+
         .week-navigation button {
             padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
             background-color: #4CAF50;
             color: white;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
         .week-navigation button:hover {
             background-color: #45a049;
         }
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
+
         h3 {
-            background-color: #f4f4f4;
-            padding: 10px;
-            border-left: 4px solid #4CAF50;
-            margin-bottom: 10px;
-            border-radius: 5px;
+            margin: 20px 0 10px;
+            font-size: 1.2rem;
+            color: #4CAF50;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
             box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
         }
+
         th, td {
-            border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
+            border-bottom: 1px solid #ddd;
         }
+
         th {
             background-color: #4CAF50;
             color: white;
         }
+
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
+
         .no-lessons {
             text-align: center;
             font-style: italic;
             color: #999;
-            margin-bottom: 20px;
         }
+
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 10px;
             background-color: #4CAF50;
             color: white;
             margin-top: 20px;
@@ -96,99 +118,109 @@
     <script>
         let currentWeekStart = new Date();
 
+        // Получение начала недели (понедельник)
         function getWeekStart(date) {
             const day = date.getDay();
             const diff = date.getDate() - day + (day === 0 ? -6 : 1);
             return new Date(date.setDate(diff));
         }
 
+        // Форматирование даты в YYYY-MM-DD
         function formatDate(date) {
             return date.toISOString().split('T')[0];
         }
 
-        function generateWeekDates(start) {
-            const dates = [];
+        // Генерация всех дней недели
+        function generateWeekDays(start) {
+            const days = [];
             for (let i = 0; i < 7; i++) {
                 const day = new Date(start);
-                day.setDate(day.getDate() + i);
-                dates.push(day);
+                day.setDate(start.getDate() + i);
+                days.push(day);
             }
-            return dates;
+            return days;
         }
 
-        async function loadSchedule() {
-            try {
-                const weekStart = getWeekStart(new Date(currentWeekStart));
-                const weekDates = generateWeekDates(weekStart);
+        // Загрузка расписания
+        async function loadLessons() {
+            const weekStart = getWeekStart(new Date(currentWeekStart));
+            const weekDays = generateWeekDays(weekStart);
 
-                const response = await fetch(`http://localhost:8080/api/lessons?start=${formatDate(weekDates[0])}&end=${formatDate(weekDates[6])}`);
+            const container = document.getElementById("schedule-container");
+            container.innerHTML = "<p>Загрузка...</p>";
+
+            try {
+                const response = await fetch(`http://localhost:8080/api/lessons/with-grades`);
                 const lessons = await response.json();
-                const scheduleContainer = document.getElementById('schedule-container');
 
                 const lessonsByDate = lessons.reduce((acc, lesson) => {
-                    if (!acc[lesson.lessonDate]) {
-                        acc[lesson.lessonDate] = [];
-                    }
+                    if (!acc[lesson.lessonDate]) acc[lesson.lessonDate] = [];
                     acc[lesson.lessonDate].push(lesson);
                     return acc;
                 }, {});
 
-                scheduleContainer.innerHTML = weekDates.map(date => {
-                    const formattedDate = formatDate(date);
-                    const lessonsForDate = lessonsByDate[formattedDate] || [];
+                // Отображение расписания на неделю
+                container.innerHTML = weekDays.map(day => {
+                    const dateStr = formatDate(day);
+                    const dayLessons = lessonsByDate[dateStr] || [];
+
                     return `
-                        <h3>${date.toLocaleDateString()}</h3>
-                        ${lessonsForDate.length > 0 ? `
+                        <h3>${day.toLocaleDateString()}</h3>
+                        ${dayLessons.length > 0 ? `
                             <table>
-                                <thead>
+                                <tr>
+                                    <th>Время</th>
+                                    <th>Предмет</th>
+                                    <th>Преподаватель</th>
+                                    <th>Оценка</th>
+                                    <th>Комментарий</th>
+                                </tr>
+                                ${dayLessons.map(lesson => `
                                     <tr>
-                                        <th>Время</th>
-                                        <th>Предмет</th>
-                                        <th>Преподаватель</th>
-                                        <th>Группа</th>
+                                        <td>${lesson.timeSlot}</td>
+                                        <td>${lesson.subjectName}</td>
+                                        <td>${lesson.teacherName}</td>
+                                        <td>${lesson.grade ?? '—'}</td>
+                                        <td>${lesson.comment ?? '—'}</td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    ${lessonsForDate.map(lesson => `
-                                        <tr>
-                                            <td>${lesson.timeSlot.timeLabel}</td>
-                                            <td>${lesson.subject.name}</td>
-                                            <td>${lesson.teacher.fullName}</td>
-                                            <td>${lesson.studentGroup.groupName}</td>
-                                        </tr>
-                                    `).join('')}
-                                </tbody>
+                                `).join('')}
                             </table>
                         ` : '<p class="no-lessons">Занятий нет</p>'}
                     `;
                 }).join('');
             } catch (error) {
-                console.error('Error loading schedule:', error);
+                console.error("Ошибка загрузки:", error);
+                container.innerHTML = "<p>Не удалось загрузить расписание.</p>";
             }
         }
 
+        // Переключение недели
         function navigateWeek(offset) {
             currentWeekStart.setDate(currentWeekStart.getDate() + offset * 7);
-            loadSchedule();
+            loadLessons();
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            currentWeekStart = getWeekStart(new Date());
-            loadSchedule();
-        });
+        // Инициализация
+        document.addEventListener("DOMContentLoaded", loadLessons);
     </script>
 </head>
 <body>
-    <header>Расписание занятий</header>
+    <header>
+        <h1>Расписание занятий</h1>
+        <nav>
+            <button onclick="window.location.href='studentlk.html'">Личный кабинет</button>
+            <button onclick="window.location.href='/logout'">Выход</button>
+        </nav>
+    </header>
     <div class="container">
         <div class="week-navigation">
-            <button onclick="navigateWeek(-1)">&lt; Предыдущая неделя</button>
-            <button onclick="navigateWeek(1)">Следующая неделя &gt;</button>
+            <button onclick="navigateWeek(-1)">← Предыдущая неделя</button>
+            <button onclick="navigateWeek(1)">Следующая неделя →</button>
         </div>
-        <div id="schedule-container">
-            <p>Загрузка расписания...</p>
-        </div>
+        <div id="schedule-container">Загрузка...</div>
     </div>
-    <footer>Егор Лукиянов курсовая</footer>
+    <footer>
+        Егор Лукиянов - курсовая работа
+    </footer>
 </body>
 </html>

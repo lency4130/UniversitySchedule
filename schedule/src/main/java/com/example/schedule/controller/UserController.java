@@ -42,7 +42,7 @@ public class UserController {
             return Map.of(
                 "role", "STUDENT",
                 "fullName", student.getFullName(),
-                "group", student.getStudentGroup().getGroupName() // Предполагается, что StudentGroup имеет поле name
+                "group", student.getStudentGroup().getGroupName() 
             );
         }
 

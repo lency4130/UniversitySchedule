@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-
+	/*
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         // Проверяем роли и перенаправляем
@@ -23,6 +23,20 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             response.sendRedirect("/admin.html");
         } else {
             response.sendRedirect("/"); // Страница по умолчанию
+        }
+    } 
+    */
+	@Override
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+        // Проверяем роли и перенаправляем на фронтенд-сервер
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_STUDENT"))) {
+            response.sendRedirect("http://localhost:3000/studentlk.html");
+        } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_TEACHER"))) {
+            response.sendRedirect("http://localhost:3000/teacher.html");
+        } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+            response.sendRedirect("http://localhost:3000/admin.html");
+        } else {
+            response.sendRedirect("http://localhost:3000/"); // Страница по умолчанию
         }
     }
 }

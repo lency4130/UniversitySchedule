@@ -70,11 +70,6 @@ public class LessonController {
         return lessonService.getLessonById(id).orElseThrow(() -> new RuntimeException("Lesson not found"));
     }
 
-    @PostMapping
-    public Lesson createLesson(@RequestBody Lesson lesson) {
-        return lessonService.saveLesson(lesson);
-    }
-
     @DeleteMapping("/{id}")
     public void deleteLesson(@PathVariable Long id) {
     	lessonService.deleteLesson(id);

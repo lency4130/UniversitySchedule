@@ -34,10 +34,6 @@ public class StudentController {
         return service.getStudentById(id).orElseThrow(() -> new RuntimeException("Student not found"));
     }
 
-    @PostMapping
-    public Student createStudent(@RequestBody Student student) {
-        return service.saveStudent(student);
-    }
 
     @DeleteMapping("/{id}")
     public void deleteStudent(@PathVariable Long id) {

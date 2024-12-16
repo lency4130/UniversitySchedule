@@ -18,7 +18,7 @@ public class GradeController {
         this.gradeService = gradeService;
     }
 
-    @PostMapping
+    @PostMapping("/set")
     public Grade addGrade(@RequestParam Long lessonId,
                           @RequestParam Long studentId,
                           @RequestParam int grade,
@@ -31,22 +31,6 @@ public class GradeController {
         }
     }
     
-    /*
-    @PostMapping
-    public List<GradeDTO> getGradesByLessonId(Long lessonId) {
-        List<Grade> grades = gradeRepository.findByLessonId(lessonId);
-
-        return grades.stream()
-            .map(grade -> new GradeDTO(
-                grade.getId(),
-                grade.getStudent().getId(),
-                grade.getStudent().getFullName(),
-                grade.getGrade(),
-                grade.getComment()
-            ))
-            .collect(Collectors.toList());
-    }
-    */
 
     
     @GetMapping

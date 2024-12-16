@@ -142,12 +142,14 @@
         }
 
         .modal-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            text-align: center;
-        }
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 600px; /* Увеличена ширина */
+    max-height: 80vh; /* Максимальная высота */
+    overflow-y: auto; /* Вертикальный скроллбар, если содержимого много */
+    text-align: center;
+}
 
         .modal-content select, .modal-content button {
             margin-top: 10px;

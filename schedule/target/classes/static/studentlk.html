@@ -46,7 +46,7 @@
 
         .container {
             margin: 20px auto;
-            max-width: 600px;
+            max-width: 800px;
             background-color: white;
             border-radius: 10px;
             padding: 20px;
@@ -61,6 +61,31 @@
         .info {
             margin: 10px 0;
             font-size: 1.2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .no-documents {
+            margin-top: 20px;
+            color: #777;
         }
 
         footer {
@@ -88,11 +113,73 @@
                     <p class="info">Группа: ${user.group}</p>
                     <p class="info">Роль: ${user.role}</p>
                 `;
+
+                loadDocuments(user.group);
             } catch (error) {
                 console.error("Ошибка загрузки данных:", error);
                 container.innerHTML = "<p>Не удалось загрузить данные пользователя.</p>";
             }
         }
+
+        async function loadDocuments(userGroupName) {
+            const tableContainer = document.getElementById('documents');
+            const tableContent = document.createElement('div'); // Создаем контейнер для таблицы
+            tableContent.id = 'table-content';
+            tableContainer.innerHTML = "<h2>Документы группы</h2>"; // Оставляем заголовок
+            tableContainer.appendChild(tableContent); // Добавляем контейнер для таблицы
+
+            tableContent.innerHTML = "<p>Загрузка документов...</p>";
+
+            try {
+                const response = await fetch(`/api/files/list`);
+                if (!response.ok) {
+                    throw new Error('Ошибка загрузки документов');
+                }
+
+                const files = await response.json();
+                
+                const filteredFiles = files.filter(file => file.group.groupName === userGroupName);
+                
+                if (filteredFiles.length === 0) {
+                    tableContent.innerHTML = "<p class='no-documents'>Документов нет</p>";
+                    return;
+                }
+                
+                
+
+                let tableHTML = `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Дата создания</th>
+                                <th>Учитель</th>
+                                <th>Комментарий</th>
+                                <th>Ссылка</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                filteredFiles.forEach(file => {
+                    tableHTML += `
+                        <tr>
+                            <td>${new Date(file.createdAt).toLocaleString()}</td>
+                            <td>${file.teacher.fullName}</td>
+                            <td>${file.comment || "Без комментария"}</td>
+                            <td><a href="/api/files/download/${file.id}" target="_blank">Скачать</a></td>
+                        </tr>
+                    `;
+                });
+
+                tableHTML += '</tbody></table>';
+                tableContent.innerHTML = tableHTML; // Обновляем только содержимое таблицы
+
+            } catch (error) {
+                console.error("Ошибка загрузки документов:", error);
+                tableContent.innerHTML = "<p>Не удалось загрузить документы.</p>";
+            }
+        }
+
 
         document.addEventListener("DOMContentLoaded", loadUserInfo);
     </script>
@@ -107,6 +194,13 @@
     </header>
     <div class="container" id="user-info">
         <!-- Информация о пользователе будет загружена здесь -->
+    </div>
+    <div class="container" id="documents">
+        <h2>Документы группы</h2>
+        <!-- Таблица документов будет загружена здесь -->
+    </div>
+    <div class="container" id="documents">
+        <!-- Таблица документов будет загружена здесь -->
     </div>
     <footer>
         Егор Лукиянов - курсовая работа

@@ -2,6 +2,9 @@ package com.example.schedule.service;
 
 import com.example.schedule.model.Teacher;
 import com.example.schedule.repository.TeacherRepository;
+
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 
@@ -17,5 +20,9 @@ public class TeacherService {
 	
 	public Teacher findTeacherByEmail(String email) {
 	    return teacherRepository.findByEmail(email);
+	}
+	
+	public Optional<Teacher> findTeacherById(Long id) {
+		return teacherRepository.findById(id);
 	}
 }

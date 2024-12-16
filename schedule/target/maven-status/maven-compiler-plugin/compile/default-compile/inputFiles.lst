@@ -2,6 +2,8 @@ C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\service\GradeService.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\service\TeacherService.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\controller\StudentController.java
+C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\repository\GroupFileRepository.java
+C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\controller\GroupFileController.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\model\Lesson.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\ScheduleApplication.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\repository\SubjectRepository.java
@@ -12,6 +14,7 @@ C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\repository\TeacherRepository.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\model\Grade.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\model\Schedule.java
+C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\handler\CustomAuthenticationSuccessHandler.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\service\CustomUserDetailsService.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\repository\StudentGroupRepository.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\repository\AdminRepository.java
@@ -21,6 +24,7 @@ C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\model\Admin.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\controller\UserController.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\controller\SubjectController.java
+C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\controller\LoginController.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\controller\LessonController.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\dto\GradeDTO.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\model\GroupFile.java
@@ -36,5 +40,4 @@ C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\service\FileStorageService.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\model\Subject.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\model\StudentGroup.java
-C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\GradeControllerTest.java
 C:\Users\e\git\repositoryCourseWork\schedule\src\main\java\com\example\schedule\repository\StudentRepository.java

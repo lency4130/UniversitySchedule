@@ -1,5 +1,6 @@
 package com.example.schedule.model;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -18,13 +19,28 @@ public class GroupFile {
 
     @Column(name = "file_path", nullable = false)
     private String filePath;
+    
+    @Column(name = "comment")
+    private String comment;
+    
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+    
+    @ManyToOne
+    @JoinColumn(name = "teacher_id", nullable = false)
+    private Teacher teacher;
+    
+    
 
     // Конструкторы
     public GroupFile() {}
 
-    public GroupFile(StudentGroup studentGroup, String filePath) {
+    public GroupFile(StudentGroup studentGroup, String filePath, String comment, LocalDateTime createdAt, Teacher teacher) {
         this.studentGroup = studentGroup;
         this.filePath = filePath;
+        this.comment = comment;
+        this.createdAt = createdAt;
+        this.teacher = teacher;
     }
 
     // Геттеры и сеттеры
@@ -40,7 +56,7 @@ public class GroupFile {
         return studentGroup;
     }
 
-    public void setGroup(Long groupId) {
+    public void setGroup(StudentGroup studentGroup) {
         this.studentGroup = studentGroup;
     }
 
@@ -51,7 +67,33 @@ public class GroupFile {
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
+    
+    public String getComment() {
+        return comment;
+    }
 
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+    
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    // Сеттер для teacher
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+    
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    // Сеттер для createdAt
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
